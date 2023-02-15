@@ -58,8 +58,14 @@ protected:
 			people_msgs_utils::Person pstd(person);
 			hanp_msgs::TrackedHuman phateb;
 
-			// copy track ID
-			phateb.track_id = pstd.getID();
+			/*
+			 * Conversion from track name to track ID.
+			 *
+			 * NOTE: for tracks obtained from SPENCER perception stack, this will be valid.
+			 * However, with approaches that name people with, e.g., literals, this will produce a runtime error.
+			 * E.g. UUIDv5 should be used then.
+			 */
+			phateb.track_id = std::stoul(pstd.getName());
 
 			// copy tracking data to a segment
 			hanp_msgs::TrackedSegment segment;
